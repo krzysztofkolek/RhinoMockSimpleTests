@@ -1,10 +1,10 @@
 ﻿namespace RihnoMockSimpleTests.Custom
 {
     using NUnit.Framework;
-    using RihnoMockSimpleTests.CsvMap;
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Reflection;
 
     /// <summary>
     /// Base test class
@@ -41,7 +41,20 @@
             using (var csvReader = new CsvHelper.CsvReader(fileReader))
             {
                 csvReader.Configuration.IsHeaderCaseSensitive = false;
-                csvReader.Configuration.RegisterClassMap<CalculatorMap>();
+
+                var assemblyTypes = Assembly.GetExecutingAssembly().DefinedTypes.GetEnumerator();
+                while (assemblyTypes.MoveNext())
+                {
+                    var item = assemblyTypes.Current;
+                    if (item.FullName.Contains("CsvMap"))
+                    {
+                        MethodInfo method = csvReader.Configuration
+                                                     .GetType()
+                            //69 method = {CsvHelper.Configuration.CsvClassMap RegisterClassMap(System.Type)}
+                                                     .GetMethods()[69];
+                        method.Invoke(csvReader.Configuration, new object[] { item });
+                    }
+                }
 
                 while (csvReader.Read())
                 {
