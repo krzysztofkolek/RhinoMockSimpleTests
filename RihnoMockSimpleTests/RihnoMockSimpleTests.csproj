@@ -110,7 +110,6 @@
     <Compile Include="CsvMap\CalculatorMap.cs" />
     <Compile Include="CsvModel\CalculatorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TEST.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CsvData\CalculatorData.csv" />

@@ -9,12 +9,17 @@
     [TestFixture]
     public class CalculatorTest : BaseTest<CalculatorModel, CalculatorTest>
     {
+        #region Private members
         private ICalculator _calculator { get; set; }
+        #endregion Private members
 
+        #region Constructors
         public CalculatorTest()
         {
         }
+        #endregion Constructors
 
+        #region Abstract layer
         public override string GetDataFileName()
         {
             return "CalculatorData.csv";
@@ -24,13 +29,17 @@
         {
             return TestContext.CurrentContext;
         }
+        #endregion Abstract layer
 
+        #region Test preparation
         [SetUp]
         public void Setup()
         {
             _calculator = MockRepository.GenerateStub<ICalculator>();
         }
+        #endregion Test preparation
 
+        #region Tests
         [Test, Order(1), Category("CalculatorTest"), TestCaseSource("GetTestData")]
         public void TestAdd(CalculatorModel testData)
         {
@@ -95,5 +104,6 @@
             // ASSERT
             Assert.AreEqual(result, testData.Sqrt);
         }
+        #endregion Tests
     }
 }

@@ -15,19 +15,43 @@
         where T : new()
         where C : new()
     {
+        #region Abstract layer
+        /// <summary>
+        /// Abstract, that should be implemented ine the concreate implementation.
+        /// Will be accessed by BaseTest<T, C> in the static methods using reflections.
+        /// </summary>
+        /// <returns></returns>
         public abstract string GetDataFileName();
-        public abstract TestContext GetTestContext();
 
+        /// <summary>
+        /// Abstract, that should be implemented ine the concreate implementation.
+        /// Will be accessed by BaseTest<T, C> in the static methods using reflections.
+        /// </summary>
+        /// <returns></returns>
+        public abstract TestContext GetTestContext();
+        #endregion Abstract layer
+
+        #region Abstract access layer
+        /// <summary>
+        /// Gets the data file name from the concreate implementation.
+        /// </summary>
+        /// <returns></returns>
         protected static string GetDataFile()
         {
             return typeof(C).GetMethod("GetDataFileName").Invoke(new C(), null).ToString();
         }
 
+        /// <summary>
+        /// Gets the TestContext from the concreate implementation.
+        /// </summary>
+        /// <returns></returns>
         protected static TestContext GetBaseTestContext()
         {
             return (TestContext)typeof(C).GetMethod("GetTestContext").Invoke(new C(), null);
         }
+        #endregion Abstract access layer
 
+        #region Functionality
         protected static String GetFullPathToDataFile()
         {
             String basePath = Path.GetFullPath(Path.Combine(GetBaseTestContext().TestDirectory, @"..\..\"));
@@ -64,5 +88,6 @@
                 }
             }
         }
+        #endregion Functionality
     }
 }
