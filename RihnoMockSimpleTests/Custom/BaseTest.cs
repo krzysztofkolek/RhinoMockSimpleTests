@@ -45,14 +45,15 @@
                 var assemblyTypes = Assembly.GetExecutingAssembly().DefinedTypes.GetEnumerator();
                 while (assemblyTypes.MoveNext())
                 {
-                    var item = assemblyTypes.Current;
-                    if (item.FullName.Contains("CsvMap"))
+                    var type = assemblyTypes.Current;
+                    if (type.FullName.Contains("CsvMap"))
                     {
+                        //69 method = {CsvHelper.Configuration.CsvClassMap RegisterClassMap(System.Type)}
+                        int genericMethodPlaceInTheMethodsList = 69;
                         MethodInfo method = csvReader.Configuration
                                                      .GetType()
-                            //69 method = {CsvHelper.Configuration.CsvClassMap RegisterClassMap(System.Type)}
-                                                     .GetMethods()[69];
-                        method.Invoke(csvReader.Configuration, new object[] { item });
+                                                     .GetMethods()[genericMethodPlaceInTheMethodsList];
+                        method.Invoke(csvReader.Configuration, new object[] { type });
                     }
                 }
 
