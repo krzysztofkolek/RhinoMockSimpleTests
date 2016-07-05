@@ -3,6 +3,7 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Reflection;
 
@@ -71,6 +72,7 @@
             using (var csvReader = new CsvHelper.CsvReader(fileReader))
             {
                 csvReader.Configuration.IsHeaderCaseSensitive = false;
+                csvReader.Configuration.CultureInfo = CultureInfo.GetCultureInfo("en-GB");
 
                 var assemblyTypes = Assembly.GetExecutingAssembly().DefinedTypes.GetEnumerator();
                 while (assemblyTypes.MoveNext())
