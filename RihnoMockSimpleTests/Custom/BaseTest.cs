@@ -27,7 +27,9 @@
         /// Abstract, that should be implemented ine the concreate implementation.
         /// Will be accessed by BaseTest<T, C> in the static methods using reflections.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Returns the TestContext from the concreate class.
+        /// </returns>
         public abstract TestContext GetTestContext();
         #endregion Abstract layer
 
@@ -35,7 +37,9 @@
         /// <summary>
         /// Gets the data file name from the concreate implementation.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Returns the file name from the concreate class by reflections.
+        /// </returns>
         protected static string GetDataFile()
         {
             return typeof(C).GetMethod("GetDataFileName").Invoke(new C(), null).ToString();
@@ -44,7 +48,9 @@
         /// <summary>
         /// Gets the TestContext from the concreate implementation.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Returns the TestContext from the concreate clas by reflections. 
+        /// </returns>
         protected static TestContext GetBaseTestContext()
         {
             return (TestContext)typeof(C).GetMethod("GetTestContext").Invoke(new C(), null);
