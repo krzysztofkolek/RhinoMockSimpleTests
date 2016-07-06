@@ -35,7 +35,7 @@
         [SetUp]
         public void Setup()
         {
-            _calculator = MockRepository.GenerateStub<ICalculator>();
+            _calculator = MockRepository.GenerateMock<ICalculator>();
         }
         #endregion Test preparation
 
@@ -101,7 +101,7 @@
             // ACT
             var result = _calculator.Sqrt(testData.NumberOne);
 
-            // ASSERT
+            // ASSERTRa
             Assert.AreEqual(result, testData.Sqrt);
         }
         #endregion Tests
